@@ -6,7 +6,7 @@
 2. 优先下载 GitHub Releases 对应 IDE 的版本 ZIP 并核对 SHA-256。安装包已固定 Skill 版本。
 3. 支持插件的 IDE 按原生插件流程安装；只支持 MCP 的 IDE 合并其配置；Skill 单独安装不等于 MCP 已连接。不要自动改默认模型或官方登录。
 4. OAuth 包不放静态 Authorization 头。在原生 MCP 设置点击连接/身份验证，跳转现有 INT-AI 网站，复用账号登录，选择自己的 Key 并授权。首次登录在新标签完成，原授权页自动检测后继续。插件列表不是自定义 Key 表单。
-5. 注册、充值、创建 Key 入口分别为 https://api.yqstai.cn/register 、https://api.yqstai.cn/console/topup 、https://api.yqstai.cn/console/token 。
+5. 注册、充值、创建 Key 入口分别为 https://api.yqstai.cn/register 、https://api.yqstai.cn/consoles/wallet 、https://api.yqstai.cn/consoles/keys 。
 
 ## Codex 独立用户
 

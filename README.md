@@ -2,7 +2,7 @@
 
 把 INT-AI 模型调用能力接入你已经在用的 AI IDE。无需为了调用模型切换到另一个聊天应用；让当前 Agent 读取模型接口契约、发送任务并查询结果。
 
-**开源客户端工具 + 独立远程 MCP 服务**。这个仓库公开 IDE 适配器、Skill、安装与连接检查工具、V5 凭据桥接代码；线上 MCP 服务和 NEWAPI 内部实现不包含在公开仓库中。外层代码采用 Apache-2.0，服务器不是本仓库的开源交付物。
+**开源客户端工具 + 独立远程 MCP 服务**。这个仓库公开 IDE 适配器、Skill、安装与连接检查工具、V5 凭据桥接代码；线上 MCP 服务和 INT-AI 服务端内部实现不包含在公开仓库中。外层代码采用 Apache-2.0，服务器不是本仓库的开源交付物。
 
 ## 适合做什么
 
@@ -27,11 +27,11 @@
 
 > 使用模型「复制的完整模型名」完成这项任务：……。先读取执行契约和价格信息；需要实际收费时按我明确授权的范围执行。
 
-只提供家族名、简称、“第二个”或没指定模型时，工具停止执行并给出模型广场链接。它不猜意图、不推荐替代模型、不自动降级、不重复提交收费任务。提示词与原生参数由用户的 Agent 依据契约构造；路由、协议转换、权限和计费由 NEWAPI 处理。
+只提供家族名、简称、“第二个”或没指定模型时，工具停止执行并给出模型广场链接。它不猜意图、不推荐替代模型、不自动降级、不重复提交收费任务。提示词与原生参数由用户的 Agent 依据契约构造；路由、协议转换、权限和计费由 INT-AI 平台处理。
 
 ## 账户与收费
 
-[注册](https://api.yqstai.cn/register) → [充值](https://api.yqstai.cn/console/topup) → [创建 API Key](https://api.yqstai.cn/console/token)。连接地址固定为 `https://mcp.yqstai.cn/mcp`。
+[注册](https://api.yqstai.cn/register) → [充值](https://api.yqstai.cn/consoles/wallet) → [创建 API Key](https://api.yqstai.cn/consoles/keys)。连接地址固定为 `https://mcp.yqstai.cn/mcp`。
 
 插件外层代码免费；模型调用按 INT-AI 平台规则计费。不要把 Key 发到聊天、GitHub、日志、URL 或项目源码。撤销 Key 后原连接不再拥有调用资格。
 

@@ -1,6 +1,6 @@
 {
   "module": "cursor-oauth",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "host": "cursor",
   "name": "Cursor",
   "auth": "oauth-pkce",

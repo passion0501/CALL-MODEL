@@ -20,8 +20,8 @@ change the IDE's main login or provider settings.
 
 The browser page provides:
 - Register: https://api.yqstai.cn/register
-- Recharge: https://api.yqstai.cn/console/topup
-- Create Key: https://api.yqstai.cn/console/token
+- Recharge: https://api.yqstai.cn/consoles/wallet
+- Create Key: https://api.yqstai.cn/consoles/keys
 
 Tell the user to select their own Key by its name and masked suffix, review
 the requesting client's self-declared identity/callback and paid-call consent,

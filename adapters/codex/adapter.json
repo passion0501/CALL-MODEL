@@ -1,7 +1,7 @@
 {
   "id": "codex",
   "name": "Codex",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "format": "toml",
   "configFile": "~/.codex/config.toml",
   "auth": "environment",
@@ -18,5 +18,6 @@
     "将配置段合并到 ~/.codex/config.toml，保留其他服务器配置。",
     "完全重启 Codex，使其继承环境变量；在 MCP 设置确认工具已发现。"
   ],
-  "config": "[mcp_servers.int-ai]\nurl = \"https://mcp.yqstai.cn/mcp\"\nbearer_token_env_var = \"INT_AI_API_KEY\"\n"
+  "config": "[mcp_servers.int-ai]\nurl = \"https://mcp.yqstai.cn/mcp\"\nbearer_token_env_var = \"INT_AI_API_KEY\"\n",
+  "skillVersion": "0.1.4"
 }

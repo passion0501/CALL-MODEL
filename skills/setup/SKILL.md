@@ -9,8 +9,8 @@ Do not invent an embedded form or assume a plugin marketplace listing exists.
 Give all users these links without requiring them to send credentials:
 
 - Register: https://api.yqstai.cn/register
-- Recharge: https://api.yqstai.cn/console/topup
-- Create Key: https://api.yqstai.cn/console/token
+- Recharge: https://api.yqstai.cn/consoles/wallet
+- Create Key: https://api.yqstai.cn/consoles/keys
 
 Codex and Cursor: guide the user to configure `INT_AI_API_KEY` locally, then
 restart the IDE so it inherits that environment. Show only the packaged template,

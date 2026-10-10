@@ -1,7 +1,7 @@
 {
   "id": "workbuddy",
   "name": "WorkBuddy",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "format": "json",
   "configFile": "connector/mcp.json",
   "auth": "native-form",
@@ -29,5 +29,6 @@
         "timeout": 120000
       }
     }
-  }
+  },
+  "skillVersion": "0.1.4"
 }

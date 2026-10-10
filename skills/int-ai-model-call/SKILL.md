@@ -22,7 +22,7 @@ Installing this skill alone cannot enable execution without remote MCP support.
    confirmation loop, selection state or automatic recommendation.
 2. Use `int_ai_get_model_execution` with that exact, case-sensitive name. Select
    the advertised transport ID, or explicitly provide the advertised endpoint
-   and method when no ID is available. NEWAPI owns downstream protocol conversion.
+   and method when no ID is available. INT-AI handles downstream protocol conversion.
 3. Construct the request body required by the advertised contract. The MCP `model`
    selects the contract; it is NOT automatically injected into `input`. Preserve
    explicit zero, false and unknown provider fields. Do not rename model IDs.

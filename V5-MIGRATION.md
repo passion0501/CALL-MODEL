@@ -2,7 +2,7 @@
 
 保持名称 `int-ai-model-call`、显示名「模型调用（INT-AI）」、V5 必需文件和默认上海 stable manifest 不变。旧版 1.0.5 及其包保留回滚。
 
-V5 已加密注入凭据 → 独立 Windows 传输桥 → `https://mcp.yqstai.cn/mcp` → NEWAPI。V5 不需要换账号；独立用户使用 OAuth 包，复用 INT-AI 网站登录并选择自己的 Key。Key 备用包继续保留。三种入口不修改 Codex 主模型或官方登录。
+V5 已加密注入凭据 → 独立 Windows 传输桥 → `https://mcp.yqstai.cn/mcp` → INT-AI 平台。V5 不需要换账号；独立用户使用 OAuth 包，复用 INT-AI 网站登录并选择自己的 Key。Key 备用包继续保留。三种入口不修改 Codex 主模型或官方登录。
 
 2.1.0 使用真实 INT Client LOGO、更新的授权指导和显式 Content-Type 指令。V5 包仍是注入凭据入口，不会伪装成能在 stdio 插件列表触发远程 OAuth；官方登录且不使用 V5 的用户应安装 `codex-oauth` 包。不要同时装两个同名模型工具包。
 

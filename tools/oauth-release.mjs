@@ -17,7 +17,7 @@ export async function buildOAuth(host){
  const a=validateOAuth((await oauthAdapters()).find(a=>a.host===host)??{});
  // Pin execution instructions to the already immutable shared Skill artifact.
  const execute=await readFile(path.join(root,'skills/int-ai-model-call/SKILL.md'));
- if(createHash('sha256').update(execute).digest('hex')!=='44aaf3754c4cc7bee8a5161ef3ad71bc69d36f3dd29eb54ae0b4050b1dcd3657')throw Error('Pinned execution Skill changed: bump module dependencies deliberately');
+ if(createHash('sha256').update(execute).digest('hex')!=='04893874e5f8d4561aa12d2ddc5d33ff169d85eb309152c89317b31b5963ffd6')throw Error('Pinned execution Skill changed: bump module dependencies deliberately');
  const setup=await readFile(path.join(root,'skills/oauth-setup/SKILL.md'));
  const logo=await readFile(path.join(root,'assets/client-logo.png'));
  const files={
@@ -25,7 +25,7 @@ export async function buildOAuth(host){
   [a.configFile]:Buffer.from(typeof a.config==='string'?a.config:JSON.stringify(a.config,null,2)+'\n'),
   'skills/int-ai-model-call/SKILL.md':execute,'skills/oauth-setup/SKILL.md':setup,
   'assets/client-logo.png':logo,
-  'README.md':Buffer.from(`# INT-AI · ${a.name} · OAuth\n\n模块 ${a.module}@${a.version}，执行 Skill 0.1.3，授权 Skill 0.1.1。当前状态：${a.status}。未完成客户端实机验收，不能当作生产安装已成功。\n\n${a.instructions.map((s,i)=>`${i+1}. ${s}`).join('\n')}\n\n[连接与账号说明](https://mcp.yqstai.cn/setup?host=${a.host})。使用现有 INT-AI 账号登录并选择自己的 Key；IDE 不获取原始 Key。手动 Key 包为备用，不发到聊天。仅查询工具列表检查连接，不提交付费测试。\n\n${a.sources.map(s=>`- ${s}`).join('\n')}\n`),
+  'README.md':Buffer.from(`# INT-AI · ${a.name} · OAuth\n\n模块 ${a.module}@${a.version}，执行 Skill 0.1.4，授权 Skill 0.1.2。当前状态：${a.status}。未完成客户端实机验收，不能当作生产安装已成功。\n\n${a.instructions.map((s,i)=>`${i+1}. ${s}`).join('\n')}\n\n[连接与账号说明](https://mcp.yqstai.cn/setup?host=${a.host})。使用现有 INT-AI 账号登录并选择自己的 Key；IDE 不获取原始 Key。手动 Key 包为备用，不发到聊天。仅查询工具列表检查连接，不提交付费测试。\n\n${a.sources.map(s=>`- ${s}`).join('\n')}\n`),
  };
  if(host==='codex'){
   files['.mcp.json']=Buffer.from(JSON.stringify(a.pluginConfig,null,2)+'\n');
@@ -41,7 +41,7 @@ export async function buildOAuth(host){
  if(host==='claude-code')files['.claude-plugin/plugin.json']=Buffer.from(JSON.stringify({name:'int-ai-model-call',version:a.version,description:'INT-AI exact-model tools with native OAuth'},null,2)+'\n');
  for(const n of ['LICENSE','NOTICE'])files[n]=await readFile(path.join(root,n));
  const hashes=Object.fromEntries(Object.entries(files).sort(([a],[b])=>a.localeCompare(b)).map(([n,b])=>[n,createHash('sha256').update(b).digest('hex')]));
- files['release.json']=Buffer.from(JSON.stringify({module:a.module,version:a.version,dependencies:{service:'>=0.2.1 <1.0.0',skill:'0.1.3',oauthSetup:'0.1.1'},files:hashes},null,2)+'\n');
+ files['release.json']=Buffer.from(JSON.stringify({module:a.module,version:a.version,dependencies:{service:'>=0.2.1 <1.0.0',skill:'0.1.4',oauthSetup:'0.1.2'},files:hashes},null,2)+'\n');
  const output=path.join(root,'dist',a.module,a.version);for(const[n,b]of Object.entries(files)){const dest=path.join(output,n);await mkdir(path.dirname(dest),{recursive:true});try{if(!(await readFile(dest)).equals(b))throw Error('Immutable OAuth module changed; bump only this module version')}catch(e){if(e.code!=='ENOENT')throw e;await writeFile(dest,b,{flag:'wx'})}}
  const archive=zip(files),sha=createHash('sha256').update(archive).digest('hex');const dest=path.join(root,'dist',`${a.module}-${a.version}.zip`);
  try{if(!(await readFile(dest)).equals(archive))throw Error('Immutable OAuth archive changed')}catch(e){if(e.code!=='ENOENT')throw e;await writeFile(dest,archive,{flag:'wx'})}

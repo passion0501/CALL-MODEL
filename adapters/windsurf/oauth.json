@@ -1,6 +1,6 @@
 {
   "module": "windsurf-oauth",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "host": "windsurf",
   "name": "Windsurf / Devin Desktop",
   "auth": "oauth-pkce",
