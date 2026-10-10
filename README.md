@@ -21,6 +21,8 @@
 
 [安装与 Key 引导](INSTALL.md) · [认证说明](AUTHENTICATION.md) · [兼容范围](COMPATIBILITY.md) · [V5 迁移](V5-MIGRATION.md) · [更新记录](CHANGELOG.md)
 
+只添加远程 MCP 连接器、未安装 Skill 的用户，见 [通用 MCP 使用流程](MCP-USAGE.md)。MCP0.2.4 在服务器与工具说明中提供完整基本调用指引；客户端仍需在当前会话启用工具。
+
 ## 使用示例
 
 打开 [模型广场](https://api.yqstai.cn/pricing)，复制完整模型名，然后告诉 Agent：
