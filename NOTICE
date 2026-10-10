@@ -1,0 +1,4 @@
+INT-AI model-call outer client tools. Copyright 2026 INT-AI contributors.
+Apache-2.0 applies to this published client repository, not a grant to unpublished server source.
+V5 credential helper uses Go and golang.org/x/sys; license notices are under bridge/licenses.
+Figma, GitHub and IDE vendors are not sponsors of this project.

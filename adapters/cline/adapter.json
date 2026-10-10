@@ -1,0 +1,33 @@
+{
+  "id": "cline",
+  "name": "Cline",
+  "version": "0.1.2",
+  "format": "json",
+  "configFile": "通过 Cline MCP 设置打开配置文件",
+  "auth": "manual-secret",
+  "transport": "streamableHttp",
+  "skill": false,
+  "minimumDocumentedVersion": null,
+  "realClientTested": false,
+  "sources": [
+    "https://docs.cline.bot/mcp/mcp-overview"
+  ],
+  "setup": "https://mcp.yqstai.cn/setup?host=cline",
+  "instructions": [
+    "进入配置向导获取 Key。",
+    "通过 Cline MCP 设置打开私有配置，替换占位符后合并；禁止提交真实凭据。",
+    "保持 autoApprove 为空，确认收费任务前进行审批。"
+  ],
+  "config": {
+    "mcpServers": {
+      "int-ai": {
+        "type": "streamableHttp",
+        "url": "https://mcp.yqstai.cn/mcp",
+        "headers": {
+          "Authorization": "Bearer REPLACE_LOCALLY_WITH_KEY"
+        },
+        "autoApprove": []
+      }
+    }
+  }
+}

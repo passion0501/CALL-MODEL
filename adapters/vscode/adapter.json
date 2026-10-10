@@ -1,0 +1,40 @@
+{
+  "id": "vscode",
+  "name": "VS Code",
+  "version": "0.1.2",
+  "format": "json",
+  "configFile": ".vscode/mcp.json",
+  "auth": "native-form",
+  "transport": "http",
+  "skill": false,
+  "minimumDocumentedVersion": null,
+  "realClientTested": false,
+  "sources": [
+    "https://code.visualstudio.com/docs/agent-customization/mcp-servers"
+  ],
+  "setup": "https://mcp.yqstai.cn/setup?host=vscode",
+  "instructions": [
+    "打开配置向导获取 Key，使用 VS Code 的密码输入提示填写。",
+    "合并到 .vscode/mcp.json，或使用 MCP: Add Server；保留 inputs 和其他 servers。",
+    "启动 int-ai，确认当前账户和 Agent 功能可用。"
+  ],
+  "config": {
+    "inputs": [
+      {
+        "type": "promptString",
+        "id": "int-ai-api-key",
+        "description": "INT-AI Key：获取引导 https://mcp.yqstai.cn/setup?host=vscode",
+        "password": true
+      }
+    ],
+    "servers": {
+      "int-ai": {
+        "type": "http",
+        "url": "https://mcp.yqstai.cn/mcp",
+        "headers": {
+          "Authorization": "Bearer ${input:int-ai-api-key}"
+        }
+      }
+    }
+  }
+}

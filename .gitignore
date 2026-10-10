@@ -1,0 +1,7 @@
+dist/
+artifacts/
+*.exe
+.env
+*.pem
+*.key
+node_modules/

@@ -1,0 +1,32 @@
+{
+  "id": "cursor",
+  "name": "Cursor",
+  "version": "0.1.2",
+  "format": "json",
+  "configFile": "~/.cursor/mcp.json",
+  "auth": "environment",
+  "transport": "streamable-http",
+  "skill": true,
+  "minimumDocumentedVersion": null,
+  "realClientTested": false,
+  "sources": [
+    "https://cursor.com/docs/mcp",
+    "https://github.com/figma/mcp-server-guide/blob/f0493295acf5f7cbdebcbcc483c06de814420cb1/.cursor-plugin/plugin.json"
+  ],
+  "setup": "https://mcp.yqstai.cn/setup?host=cursor",
+  "instructions": [
+    "在本机安全设置 INT_AI_API_KEY 环境变量。",
+    "打开 Cursor 设置中的 MCP 页面，合并到全局 mcp.json；不覆盖其他服务器。",
+    "完全重启 Cursor，确认 int-ai 下列出了工具。"
+  ],
+  "config": {
+    "mcpServers": {
+      "int-ai": {
+        "url": "https://mcp.yqstai.cn/mcp",
+        "headers": {
+          "Authorization": "Bearer ${env:INT_AI_API_KEY}"
+        }
+      }
+    }
+  }
+}

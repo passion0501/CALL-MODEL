@@ -1,0 +1,33 @@
+{
+  "id": "roo-code",
+  "name": "Roo Code",
+  "version": "0.1.2",
+  "format": "json",
+  "configFile": "通过 Roo Code MCP 设置打开配置文件",
+  "auth": "manual-secret",
+  "transport": "streamable-http",
+  "skill": false,
+  "minimumDocumentedVersion": null,
+  "realClientTested": false,
+  "sources": [
+    "https://roocodeinc.github.io/Roo-Code/features/mcp/using-mcp-in-roo/"
+  ],
+  "setup": "https://mcp.yqstai.cn/setup?host=roo-code",
+  "instructions": [
+    "进入配置向导获取 Key。",
+    "在私有 MCP 配置里替换占位符，保留其他服务器配置。",
+    "保持 alwaysAllow 为空，启动 int-ai 后检查工具。"
+  ],
+  "config": {
+    "mcpServers": {
+      "int-ai": {
+        "type": "streamable-http",
+        "url": "https://mcp.yqstai.cn/mcp",
+        "headers": {
+          "Authorization": "Bearer REPLACE_LOCALLY_WITH_KEY"
+        },
+        "alwaysAllow": []
+      }
+    }
+  }
+}

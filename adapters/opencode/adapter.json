@@ -1,0 +1,33 @@
+{
+  "id": "opencode",
+  "name": "OpenCode",
+  "version": "0.1.2",
+  "format": "json",
+  "configFile": "opencode.json",
+  "auth": "environment",
+  "transport": "remote",
+  "skill": true,
+  "minimumDocumentedVersion": null,
+  "realClientTested": false,
+  "sources": [
+    "https://opencode.ai/docs/mcp-servers/"
+  ],
+  "setup": "https://mcp.yqstai.cn/setup?host=opencode",
+  "instructions": [
+    "设置 INT_AI_API_KEY 环境变量。",
+    "合并到 opencode.json 的 mcp 节点；API Key 模式关闭 OAuth。",
+    "重新打开 OpenCode，检查 MCP 工具列表。"
+  ],
+  "config": {
+    "mcp": {
+      "int-ai": {
+        "type": "remote",
+        "url": "https://mcp.yqstai.cn/mcp",
+        "oauth": false,
+        "headers": {
+          "Authorization": "Bearer {env:INT_AI_API_KEY}"
+        }
+      }
+    }
+  }
+}
