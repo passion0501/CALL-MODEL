@@ -1,0 +1,29 @@
+{
+  "module": "vscode-oauth",
+  "version": "0.1.1",
+  "host": "vscode",
+  "name": "VS Code",
+  "auth": "oauth-pkce",
+  "realClientTested": false,
+  "status": "configuration-and-protocol-validated-native-client-pending",
+  "config": {
+    "servers": {
+      "int-ai": {
+        "type": "http",
+        "url": "https://mcp.yqstai.cn/mcp"
+      }
+    }
+  },
+  "configFile": "mcp.json",
+  "instructions": [
+    "在 MCP: Add Server 添加 HTTP 地址，或合并 .vscode/mcp.json；保留其他 servers。",
+    "在原生 MCP 身份验证流程打开浏览器，检查 INT-AI 域名后填写并授权 Key。",
+    "页面提供注册/充值/创建 Key；不要把交互 inputs 配置误认为 Agent Host 也能读取。",
+    "失效重新身份验证；清理本地认证不等于服务端撤销，撤销 Key 停止后续调用。当前包未完成真实 VS Code 认证验收。",
+    "账号登录复用现有 INT-AI 网站；IDE 获得独立连接凭据，不获取原始 Key。首次登录在新标签页完成，原授权页检测登录后继续；专用限额 Key 更安全。"
+  ],
+  "sources": [
+    "https://code.visualstudio.com/api/extension-guides/ai/mcp",
+    "https://code.visualstudio.com/docs/agents/reference/mcp-configuration"
+  ]
+}

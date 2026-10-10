@@ -1,4 +1,10 @@
-INT-AI model-call outer client tools. Copyright 2026 INT-AI contributors.
-Apache-2.0 applies to this published client repository, not a grant to unpublished server source.
-V5 credential helper uses Go and golang.org/x/sys; license notices are under bridge/licenses.
-Figma, GitHub and IDE vendors are not sponsors of this project.
+INT-AI MCP
+Copyright 2026 INT-AI contributors
+
+This project is independently implemented and licensed under Apache-2.0.
+It does not include or link the NEWAPI AGPL implementation or its SDK.
+NEWAPI integration is through its authenticated HTTP interfaces.
+
+The official MCP Go SDK and its dependencies retain their own licenses.
+GitHub and Figma repositories were used as public interoperability references,
+not copied execution implementations. Their trademarks imply no endorsement.

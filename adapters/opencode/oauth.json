@@ -1,0 +1,29 @@
+{
+  "module": "opencode-oauth",
+  "version": "0.1.1",
+  "host": "opencode",
+  "name": "OpenCode V1",
+  "auth": "oauth-pkce",
+  "realClientTested": false,
+  "status": "configuration-and-protocol-validated-native-client-pending",
+  "config": {
+    "mcp": {
+      "int-ai": {
+        "type": "remote",
+        "url": "https://mcp.yqstai.cn/mcp"
+      }
+    }
+  },
+  "configFile": "opencode.json",
+  "instructions": [
+    "本配置用于 V1，合并到 mcp；V2 改为 mcp.servers，不得混用。",
+    "opencode mcp auth int-ai 打开浏览器，按 INT-AI 页注册/充值/创建 Key 后授权。",
+    "opencode mcp list 检查连接；V2 应按官方新格式和 /mcps 操作单独安装，暂不把 V1 配置标成 V2 兼容。",
+    "opencode mcp logout int-ai 清理本地授权；服务端停止访问需撤销 Key/标准授权撤销，二者不能混为一谈。",
+    "账号登录复用现有 INT-AI 网站；IDE 获得独立连接凭据，不获取原始 Key。首次登录在新标签页完成，原授权页检测登录后继续；专用限额 Key 更安全。"
+  ],
+  "sources": [
+    "https://docs.opencode.ai/docs/mcp-servers/",
+    "https://opencode.ai/v2/docs/mcp-servers"
+  ]
+}

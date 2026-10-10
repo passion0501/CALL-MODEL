@@ -15,9 +15,9 @@ export function validate(a){
 }
 export async function build(id){
  const a=validate((await adapters()).find(a=>a.id===id)??{});
- const versions=JSON.parse(await readFile(path.join(root,'skills/version.json'),'utf8'));
+ const versions={version:a.skillVersion??'0.1.2'};
  // Only this adapter and the pinned skill contribute to this immutable payload.
- const skill=await readFile(path.join(root,'skills/int-ai-model-call/SKILL.md'),'utf8');
+ const skill=await readFile(path.join(root,versions.version==='0.1.2'?'skills/pinned/0.1.2/int-ai-model-call/SKILL.md':'skills/int-ai-model-call/SKILL.md'),'utf8');
  const files={'adapter.json':JSON.stringify(a,null,2)+'\n','README.md':`# INT-AI · ${a.name}\n\n适配器 ${a.version}；Skill 固定版本 ${versions.version}。官方文档核对及配置检查不等于真实客户端验收。\n\n账号注册：https://api.yqstai.cn/register\n充值：https://api.yqstai.cn/console/topup\n创建 Key：https://api.yqstai.cn/console/token\n模型广场：https://api.yqstai.cn/pricing\n[账号与连接说明](${a.setup})（普通文档，不是 IDE 内嵌界面）\n\n${a.instructions.map((s,i)=>`${i+1}. ${s}`).join('\n')}\n\n只接受用户指定的完整模型名。不匹配则停止并给出模型广场链接，无模糊选型、候选序号或确认状态。模型调用按平台规则计费。\n\n连接检查：在原生 MCP 设置确认连接和工具列表，或安全设置本机 INT_AI_API_KEY 后运行 node tools/check.mjs（Node 20+）；只检查授权与工具发现，不调用模型。没有原生凭据表单的客户端，通过其私有配置或本机环境变量提供 Key；不要发到聊天或写入源码。\n\n官方来源：\n${a.sources.map(s=>`- ${s}`).join('\n')}\n`,'tools/check.mjs':await readFile(path.join(root,'tools/check.mjs'),'utf8'),[a.format==='toml'?'config.toml':'mcp.json']:typeof a.config==='string'?a.config:JSON.stringify(a.config,null,2)+'\n'};
  if(a.skill){files['skills/int-ai-model-call/SKILL.md']=skill;files['skills/setup/SKILL.md']=await readFile(path.join(root,'skills/setup/SKILL.md'),'utf8');}
  if(id==='workbuddy')for(const f of ['connector-meta.json','token-schema.json'])files[f]=await readFile(path.join(root,'adapters',id,f),'utf8');

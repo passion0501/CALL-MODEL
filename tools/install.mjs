@@ -5,6 +5,7 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {root,validate} from './release.mjs';
+import {validateOAuth} from './oauth-release.mjs';
 export function merge(existing,fragment,remove=false){
  const out=structuredClone(existing);
  for(const namespace of ['mcpServers','servers','context_servers','mcp'])if(fragment[namespace]){
@@ -15,8 +16,8 @@ export function merge(existing,fragment,remove=false){
  if(fragment.inputs&&remove)out.inputs=(out.inputs??[]).filter(i=>i.id!=='int-ai-api-key');
  return out;
 }
-export async function install({host,target,apply=false,remove=false}){
- const a=validate(JSON.parse(await readFile(path.join(root,'adapters',host,'adapter.json'),'utf8')));
+export async function install({host,target,apply=false,remove=false,oauth=false}){
+ const a=(oauth?validateOAuth:validate)(JSON.parse(await readFile(path.join(root,'adapters',host,oauth?'oauth.json':'adapter.json'),'utf8')));
  if(!['cursor','claude-code','vscode','windsurf','cline','roo-code','zed','opencode','gemini-cli'].includes(host))throw Error('Use official native interface or documented merge for this host');
  const dest=path.resolve(target);let prior='{}\n';let existed=false;
  try{if((await lstat(dest)).isSymbolicLink())throw Error('Refuse symlink config');prior=await readFile(dest,'utf8');existed=true;}catch(e){if(e.code!=='ENOENT')throw e;}
@@ -39,5 +40,5 @@ export async function install({host,target,apply=false,remove=false}){
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const [, ,host,target,...flags]=process.argv;
- try{if(!target||!host||!/^[a-z0-9-]+$/.test(host))throw Error('Usage: node tools/install.mjs HOST TARGET [--apply] [--remove]');console.log(JSON.stringify(await install({host,target,apply:flags.includes('--apply'),remove:flags.includes('--remove')}),null,2));}catch(e){console.error(e.message);process.exitCode=1;}
+ try{if(!target||!host||!/^[a-z0-9-]+$/.test(host))throw Error('Usage: node tools/install.mjs HOST TARGET [--oauth] [--apply] [--remove]');console.log(JSON.stringify(await install({host,target,apply:flags.includes('--apply'),remove:flags.includes('--remove'),oauth:flags.includes('--oauth')}),null,2));}catch(e){console.error(e.message);process.exitCode=1;}
 }

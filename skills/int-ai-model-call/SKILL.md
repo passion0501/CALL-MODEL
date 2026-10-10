@@ -26,6 +26,9 @@ Installing this skill alone cannot enable execution without remote MCP support.
 3. Construct the request body required by the advertised contract. The MCP `model`
    selects the contract; it is NOT automatically injected into `input`. Preserve
    explicit zero, false and unknown provider fields. Do not rename model IDs.
+   Always supply explicit `headers`: JSON uses `{"Content-Type":"application/json"}`.
+   Raw multipart uses its original Content-Type including the boundary. The thin
+   MCP does not infer missing request headers or inject provider parameters.
 4. Respect user authorization and any supplied model/cost/count ceiling.
    Installation must disclose that model calls are billed by platform rules;
    providing a full model name does not prove knowledge of price.

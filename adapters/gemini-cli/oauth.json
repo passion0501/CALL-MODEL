@@ -1,0 +1,30 @@
+{
+  "module": "gemini-cli-oauth",
+  "version": "0.1.1",
+  "host": "gemini-cli",
+  "name": "Gemini CLI",
+  "auth": "oauth-pkce",
+  "realClientTested": false,
+  "status": "configuration-and-protocol-validated-native-client-pending",
+  "config": {
+    "mcpServers": {
+      "int-ai": {
+        "httpUrl": "https://mcp.yqstai.cn/mcp"
+      }
+    }
+  },
+  "configFile": "settings.json",
+  "callbacks": [
+    "http://localhost:{port}/oauth/callback"
+  ],
+  "instructions": [
+    "合并到 ~/.gemini/settings.json 的 mcpServers，OAuth 包不填 headers。",
+    "使用 /mcp auth int-ai 启动浏览器授权，按 INT-AI 页面完成注册/充值/创建 Key 与授权。",
+    "需要本地浏览器与回环回调；无浏览器的 SSH/容器环境不能宣称该交互方式可用。",
+    "失效使用 /mcp auth int-ai 重新授权；撤销 Key 停止后续调用。服务器回调包含 iss，保持发现的 issuer 一致。",
+    "账号登录复用现有 INT-AI 网站；IDE 获得独立连接凭据，不获取原始 Key。首次登录在新标签页完成，原授权页检测登录后继续；专用限额 Key 更安全。"
+  ],
+  "sources": [
+    "https://geminicli.com/docs/tools/mcp-server/"
+  ]
+}

@@ -8,18 +8,18 @@
 
 - 在支持 MCP 的 IDE 中，使用 INT-AI 平台可用的图片、视频、语音、文本等模型；具体能力以当前模型执行契约为准。
 - 读取模型目录与接口契约，执行用户明确指定的完整模型名，查询已提交任务。
-- 独立使用时配置自己的 INT-AI API Key；通过 V5 使用时读取同一 Windows 用户的受保护注入凭据。
+- 独立使用时通过 IDE 原生 OAuth 连接，登录现有 INT-AI 账号并选择自己的 Key；手动 Key 配置为备用。V5 使用同一 Windows 用户的受保护注入凭据。
 - 保留 IDE 本来的官方登录、默认模型和其他 MCP。INT-AI 是额外工具，不是替换 IDE 主模型的登录补丁。
 
 ## 一句话安装
 
 把下面这句话交给你的 IDE Agent：
 
-> 请从 https://github.com/passion0501/int-ai-model-call 安装「INT-AI 模型调用」。先阅读 INSTALL.md，根据当前 IDE 选择对应适配器，只合并本工具配置，保留其他设置，引导我在本机安全配置 INT-AI API Key，并检查 MCP 连接。不要修改 IDE 原有登录态、默认模型，也不要自动发起付费任务。
+> 请从 https://github.com/passion0501/int-ai-model-call 安装「INT-AI 模型调用」。先阅读 INSTALL.md，选择当前 IDE 的 OAuth 适配器，只合并本工具配置，保留其他设置，引导我通过原生身份验证登录 INT-AI、选择自己的 Key，并检查 MCP 工具。不要在聊天索取 Key，不修改 IDE 原有登录态、默认模型，也不要自动发起付费任务。若宿主不支持 OAuth，再参考独立 Key 备用适配器。
 
 名称检索只是发现方式，不保证所有 IDE 能联网找到或安装。请优先使用上面的官方仓库链接；GitHub 发布不代表进入各 IDE 插件市场。
 
-[安装与 Key 引导](INSTALL.md) · [兼容范围](COMPATIBILITY.md) · [V5 迁移](V5-MIGRATION.md)
+[安装与 Key 引导](INSTALL.md) · [认证说明](AUTHENTICATION.md) · [兼容范围](COMPATIBILITY.md) · [V5 迁移](V5-MIGRATION.md) · [更新记录](CHANGELOG.md)
 
 ## 使用示例
 
@@ -37,7 +37,7 @@
 
 ## 不做什么
 
-不承诺“全球所有模型”“全部 IDE 完全支持”或“无限额度”；不绕过 IDE 或供应商限制。不负责模型供应商调度、自动选择模型、主模型替换、本地文件上传桥接或 OAuth 登录。受保护二进制结果不保证所有 IDE 能直接预览；流式结果也不保证逐 token 展示。
+不承诺“全球所有模型”“全部 IDE 完全支持”或“无限额度”；不绕过 IDE 或供应商限制。不负责模型供应商调度、自动选择模型、主模型替换或本地文件上传桥接。受保护二进制结果不保证所有 IDE 能直接预览；流式结果也不保证逐 token 展示。OAuth 宿主配置与服务协议已验证；各 IDE 实机登录验收仍分别记录。
 
 ## 模块与发布
 
