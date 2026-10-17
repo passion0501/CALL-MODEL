@@ -1,48 +1,40 @@
 ---
 name: call-model
-description: Use the INT-AI client's local CALL-MODEL MCP capability from an IDE or Agent to call an exact model name for text, image, video, audio and other supported generation tasks.
+description: Use the INT-AI client connection file to call a user-specified exact model directly from an IDE or Agent.
 ---
 
 # CALL-MODEL
 
-CALL-MODEL is a local client-assisted capability. The INT-AI V6 client owns the
-background runtime and current credential. This Skill never reads, requests,
-prints, stores or transmits an API Key.
+## Load
 
-## Load this Skill
+Load this Skill with the host's native Skill loader. The canonical source is:
 
-1. Read this file before attempting installation.
-2. Prefer the host's native Skill loader with this repository or this raw file:
-   `https://raw.githubusercontent.com/passion0501/int-ai-model-call/main/skills/call-model/SKILL.md`
-3. Do not require `npx`, Git or a global package. If the host cannot run its
-   native Skill loader, load the raw file through the host's own Skill creation
-   flow and report that the Skill is loaded.
-4. Loading the Skill is not the same as enabling its MCP. Do not claim success
-   until the host can see the local CALL-MODEL capability provided by the INT-AI
-   client.
+`https://raw.githubusercontent.com/passion0501/int-ai-model-call/main/skills/call-model/SKILL.md`
 
-## Local MCP check
+Do not require `npx`, Git, a global package, an IDE plugin, or an MCP tool
+registration. If the host cannot load a URL, give this file to its own Skill
+creation flow.
 
-Use the client-maintained logical entry `call-model mcp` through the host's
-existing local command/terminal capability. The host does not need a CALL-MODEL
-item pre-registered in its own tool list: it may launch this command as a
-standard stdio MCP child process. Do not search the whole disk, require an
-absolute install path, add an IDE-specific plugin, or replace this with any
-remote connection. Only if the host cannot launch the command, report:
-`CALL-MODEL Skill 已加载，但 INT-AI 客户端本地运行时尚未就绪`.
-Do not fall back to another connection, ask for a Key, or invent another installer.
+## Connection
 
-## Trigger and execution
+Before every request, read the client-maintained Windows connection file:
 
-Require the user's complete exact model name. Prefer:
+`%LOCALAPPDATA%\INTClientV6\call-model\connection.json`
 
-`@CALL-MODEL`
+It contains `endpoint` and `api_key`. Use them only for the HTTP request; never
+print them, put them in the task text, or send them back to the user. The INT-AI
+client updates this file when the user starts the client or changes the active
+key. If the file is missing or invalid, report that the INT-AI client is not
+ready and do not guess another path or endpoint.
 
-`使用 CALL-MODEL <精准模型名> <任务提示词>`
+## Request rules
 
-Example: `使用 CALL-MODEL GPT-IMAGE-2.5-4K，生成一张都市夜景的图。`
+- Use the exact complete model name supplied by the user.
+- Do not list models, recommend a model, rename a model, or downgrade to another model.
+- If the model name is missing or rejected, ask the user for the exact model name.
+- Send the task to the `endpoint` from the connection file and return the upstream result.
+- Do not resubmit a request whose acceptance or result is uncertain.
 
-Read the model execution contract before submitting. Preserve the exact model
-name and request fields. If a task was accepted, timed out, disconnected, or
-has uncertain acceptance, query the existing task when possible and never submit
-it again automatically.
+Example:
+
+`使用 CALL-MODEL GPT-IMAGE-2.5-4K，生成一张都市夜景的图。`
