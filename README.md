@@ -1,48 +1,25 @@
-# INT-AI 模型调用
+# CALL-MODEL
 
-把 INT-AI 模型调用能力接入你已经在用的 AI IDE。无需为了调用模型切换到另一个聊天应用；让当前 Agent 读取模型接口契约、发送任务并查询结果。
+CALL-MODEL 是 INT-AI 客户端维护的本地 MCP 能力。IDE 或 Agent 只需读取本仓库的 Skill，由本机 INT-AI 客户端提供运行时。本仓库不提供远程连接器、账号注册、充值、Key 创建或历史适配器。
 
-**开源客户端工具 + 独立远程 MCP 服务**。这个仓库公开 IDE 适配器、Skill、安装与连接检查工具、V5 凭据桥接代码；线上 MCP 服务和 INT-AI 服务端内部实现不包含在公开仓库中。外层代码采用 Apache-2.0，服务器不是本仓库的开源交付物。
+## 安装
 
-## 适合做什么
+把下面这句话交给当前 IDE / Agent：
 
-- 在支持 MCP 的 IDE 中，使用 INT-AI 平台可用的图片、视频、语音、文本等模型；具体能力以当前模型执行契约为准。
-- 读取模型目录与接口契约，执行用户明确指定的完整模型名，查询已提交任务。
-- 独立使用时通过 IDE 原生 OAuth 连接，登录现有 INT-AI 账号并选择自己的 Key；手动 Key 配置为备用。V5 使用同一 Windows 用户的受保护注入凭据。
-- 保留 IDE 本来的官方登录、默认模型和其他 MCP。INT-AI 是额外工具，不是替换 IDE 主模型的登录补丁。
+> 请读取并加载 https://raw.githubusercontent.com/passion0501/int-ai-model-call/main/skills/call-model/SKILL.md。优先使用你自己的原生 Skill 流程，不要要求 npx、Git 或全局安装包。加载完成后检查 INT-AI 客户端提供的本地 `call-model mcp`；如果本地入口不可见，只报告客户端运行时尚未就绪，不要切换到其他连接方式。
 
-## 一句话安装
+Skill 已加载不等于本地 MCP 已就绪。客户端负责后台安装、更新和启动运行时。
 
-把下面这句话交给你的 IDE Agent：
+## 使用
 
-> 请从 https://github.com/passion0501/int-ai-model-call 安装「INT-AI 模型调用」。先阅读 INSTALL.md，选择当前 IDE 的 OAuth 适配器，只合并本工具配置，保留其他设置，引导我通过原生身份验证登录 INT-AI、选择自己的 Key，并检查 MCP 工具。不要在聊天索取 Key，不修改 IDE 原有登录态、默认模型，也不要自动发起付费任务。若宿主不支持 OAuth，再参考独立 Key 备用适配器。
+要求用户提供完整、精确的模型名：
 
-名称检索只是发现方式，不保证所有 IDE 能联网找到或安装。请优先使用上面的官方仓库链接；GitHub 发布不代表进入各 IDE 插件市场。
+`@CALL-MODEL`
 
-[安装与 Key 引导](INSTALL.md) · [认证说明](AUTHENTICATION.md) · [兼容范围](COMPATIBILITY.md) · [V5 迁移](V5-MIGRATION.md) · [更新记录](CHANGELOG.md)
+`使用 CALL-MODEL <精准模型名> <任务提示词>`
 
-只添加远程 MCP 连接器、未安装 Skill 的用户，见 [通用 MCP 使用流程](MCP-USAGE.md)。MCP0.2.4 在服务器与工具说明中提供完整基本调用指引；客户端仍需在当前会话启用工具。
+示例：`使用 CALL-MODEL GPT-IMAGE-2.5-4K，生成一张都市夜景的图。`
 
-## 使用示例
+## 安全边界
 
-打开 [模型广场](https://api.yqstai.cn/pricing)，复制完整模型名，然后告诉 Agent：
-
-> 使用模型「复制的完整模型名」完成这项任务：……。先读取执行契约和价格信息；需要实际收费时按我明确授权的范围执行。
-
-只提供家族名、简称、“第二个”或没指定模型时，工具停止执行并给出模型广场链接。它不猜意图、不推荐替代模型、不自动降级、不重复提交收费任务。提示词与原生参数由用户的 Agent 依据契约构造；路由、协议转换、权限和计费由 INT-AI 平台处理。
-
-## 账户与收费
-
-[注册](https://api.yqstai.cn/register) → [充值](https://api.yqstai.cn/consoles/wallet) → [创建 API Key](https://api.yqstai.cn/consoles/keys)。连接地址固定为 `https://mcp.yqstai.cn/mcp`。
-
-插件外层代码免费；模型调用按 INT-AI 平台规则计费。不要把 Key 发到聊天、GitHub、日志、URL 或项目源码。撤销 Key 后原连接不再拥有调用资格。
-
-## 不做什么
-
-不承诺“全球所有模型”“全部 IDE 完全支持”或“无限额度”；不绕过 IDE 或供应商限制。不负责模型供应商调度、自动选择模型、主模型替换或本地文件上传桥接。受保护二进制结果不保证所有 IDE 能直接预览；流式结果也不保证逐 token 展示。OAuth 宿主配置与服务协议已验证；各 IDE 实机登录验收仍分别记录。
-
-## 模块与发布
-
-`adapters/` 每个 IDE 独立配置；`skills/` 共享指导；`tools/` 安装和检查；`bridge/` Windows V5 凭据传输。新增 IDE 不需要改服务器执行逻辑。版本包从 Releases 下载，检查 SHA-256，不使用未经审核的主分支内容作自动更新源。
-
-参照公开机制：[Figma MCP guide](https://github.com/figma/mcp-server-guide)、[GitHub MCP installation guides](https://github.com/github/github-mcp-server/tree/main/docs/installation-guides)。这些项目不是 INT-AI 的合作方或背书方。
+不要索取、读取、输出或传输 API Key。不要搜索全盘、猜绝对安装路径、修改 IDE 原有登录态，也不要在本 Skill 中添加其他连接地址。如果本地入口不可见，应报告客户端运行时未就绪，不得自行改用其他连接方式。
