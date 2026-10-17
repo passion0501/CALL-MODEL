@@ -1,9 +1,13 @@
 ---
 name: call-model
 description: Use the INT-AI client connection file to call a user-specified exact model directly from an IDE or Agent.
+version: 2026.10.17-simple-r1
 ---
 
 # CALL-MODEL
+
+This is the simplified direct-connection baseline. It does not use the old
+MCP-process or tool-list flow.
 
 ## Load
 

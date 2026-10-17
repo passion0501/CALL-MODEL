@@ -1,5 +1,7 @@
 # CALL-MODEL
 
+Current baseline: `2026.10.17-simple-r1`.
+
 CALL-MODEL is a Skill for using the connection configuration maintained by the
 INT-AI V6 client. It does not require an IDE plugin, MCP registration, model
 catalog, or remote connector.
