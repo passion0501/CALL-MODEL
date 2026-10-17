@@ -23,10 +23,13 @@ prints, stores or transmits an API Key.
 
 ## Local MCP check
 
-Use the client-maintained logical entry `call-model mcp` when the host can launch
-local tools. Do not search the whole disk, require an absolute install path, or
-replace this with any remote connection. If the host cannot see the local entry,
-stop and report: `CALL-MODEL Skill 已加载，但 INT-AI 客户端本地运行时尚未就绪`.
+Use the client-maintained logical entry `call-model mcp` through the host's
+existing local command/terminal capability. The host does not need a CALL-MODEL
+item pre-registered in its own tool list: it may launch this command as a
+standard stdio MCP child process. Do not search the whole disk, require an
+absolute install path, add an IDE-specific plugin, or replace this with any
+remote connection. Only if the host cannot launch the command, report:
+`CALL-MODEL Skill 已加载，但 INT-AI 客户端本地运行时尚未就绪`.
 Do not fall back to another connection, ask for a Key, or invent another installer.
 
 ## Trigger and execution
