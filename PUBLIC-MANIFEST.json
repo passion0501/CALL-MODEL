@@ -1,0 +1,14 @@
+{
+  "scope": "call-model-skill-only",
+  "version": "3.0.0",
+  "files": {
+    "README.md": "2a3f73f96b392e75c77ddc6dd6f6a02cdbab6d4b1ef2e2eecf721a51cdeb2e48",
+    "INSTALL.md": "19ebc6bd9669b3444193b57fd2acd501645b14c7cb1eae7a986dfceacadca798",
+    "skills/call-model/SKILL.md": "92067e8e31bb0e2a702b664ac47ab9280332871840bf15d373c5bc5096412bbb",
+    "install-prompt.txt": "6ec9c8d74c989610ba3eaa672dd3edeeaaa707bec276699cb2007235b65eada7",
+    "LICENSE": "9b62569794d05bedc7040087bc38728cff50bbe1bc63756f936edb6f3a0a9496",
+    "NOTICE": "3599091a79d129c09c3a5094bdb744d3073cdcaa31cd761ad0c8276ad11d5750",
+    ".gitignore": "2dad24cd10b16610a486ee7af4b6cf46d53a9c50dcf02984a001fdd5defbc129",
+    "AGENTS.md": "4db8d0489b487f62941ecc97cd8543bab45d2ef673d6bad18eaa0f21af7d8294"
+  }
+}

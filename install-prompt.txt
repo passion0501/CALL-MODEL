@@ -1,0 +1,6 @@
+请使用当前 IDE / Agent 的原生 Skill 安装机制，安装并启用 CALL MODEL（技能标识：call-model）：
+https://clientdownload.intai.cc/plugins/call-model/stable/SKILL.md
+
+官方公开仓库：https://github.com/passion0501/CALL-MODEL
+已有 call-model 时请原位更新，不要重复安装。不要只阅读或总结文本；若宿主不支持持久化 Skill，请停止并说明如何手动创建/启用。
+启用后按照 Skill 检查 INT-AI Client V6、登录、余额及主密钥。CALL MODEL 使用客户端连接文件直接发起 HTTP 请求，不使用 MCP；不要安装或调用 MCP，不要索取或输出 API Key。安装本身不授权收费模型调用。

@@ -1,0 +1,1 @@
+CALL MODEL current Skill only. Follow skills/call-model/SKILL.md. Direct HTTP, not MCP. No model substitution, secrets in output, automatic paid retries or changes to IDE login. Update call-model in place.

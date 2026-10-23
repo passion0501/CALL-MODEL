@@ -1,7 +1,4 @@
-dist/
-artifacts/
-*.exe
+node_modules/
 .env
 *.pem
 *.key
-node_modules/
