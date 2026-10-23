@@ -1,94 +1,87 @@
 ---
 name: call-model
-description: Use CALL MODEL with the INT-AI Client V6 connection to call a user-specified exact model for text, image, video, audio or other supported tasks from an IDE or Agent. Direct HTTP only, not MCP.
+description: Use CALL MODEL and the INT-AI client connection file to call a user-specified exact model directly from an IDE or Agent.
 metadata:
-  version: 2026.10.23-unified-r1
+  version: 2026.10.23-unified-r2
 ---
 
 # CALL MODEL
 
-CALL MODEL is a Skill for IDEs and Agents with native Skill support. It uses
-the connection maintained by INT-AI Client V6 and sends requests directly over
-HTTP. It is not an MCP server, plugin, connector or model catalog.
+This is the simplified direct-HTTP connection. It does not use MCP, a local
+MCP process, a plugin registration, a connector, or a model catalog.
 
-## Install and enable
+## Mandatory first-use gate
 
-Use the host's native Skill mechanism to install and enable `call-model`.
-Reading this document alone does not enable a Skill. If this host cannot
-persist Skills, explain how to create/enable it and stop before model calls.
+Before doing any CALL MODEL work, actually load and enable this Skill with the
+host's native Skill mechanism. Reading the text is not the same as installing
+or enabling it. If the host cannot persist Skills, stop and tell the user to
+create/enable the Skill before continuing. Do not execute a model request until
+the host confirms that the Skill is loaded.
 
-Official repository: `https://github.com/passion0501/CALL-MODEL`
-Current installation file:
-`https://clientdownload.intai.cc/plugins/call-model/stable/SKILL.md`
+This Skill is authoritative for this workflow. Do not search for, start,
+install, register, or call MCP tools, including `int_ai_*` tools. Do not fall
+back to MCP when direct HTTP is unavailable. Stop and report the direct-HTTP
+failure instead.
 
-The repository and download site publish the same version of this file.
-Update an existing `call-model` Skill in place, rather than installing a second
-copy. Do not use older INT-AI model-call/MCP instructions for this workflow.
-Do not install Git, npx, an IDE plugin or MCP to use this Skill.
+## Load
 
-## Prepare the client and account
+Load this Skill with the host's native Skill loader. The canonical source is:
 
-Before the first model call, guide the user to:
+`https://raw.githubusercontent.com/passion0501/CALL-MODEL/main/skills/call-model/SKILL.md`
 
-1. Start INT-AI Client V6 and register/sign in to their INT-AI account.
-2. For paid models, ensure the account has sufficient balance.
-3. Create or select the main API Key in the client.
+Do not require `npx`, Git, a global package, an IDE plugin, or an MCP tool
+registration. If the host cannot load a URL, give this file to its own Skill
+creation flow.
 
-Account pages, if needed:
-`https://api.intai.cc/register`,
-`https://api.intai.cc/consoles/wallet`,
-`https://api.intai.cc/consoles/keys`.
-The user handles login, top-up and Key selection. Do not perform a top-up,
-create a Key or ask the user to paste a Key into chat.
+## First-use account setup
 
-## Read the connection
+Before the first model request, guide the user through the INT-AI account
+prerequisites instead of waiting for an insufficient-quota response:
 
-Before every model request, read the current client-maintained file:
-`%LOCALAPPDATA%\INTClientV6\call-model\connection.json`.
+1. Register or sign in: `https://api.intai.cc/register`
+2. For paid models, top up first: `https://api.intai.cc/consoles/wallet`
+3. Create or select an API Key: `https://api.intai.cc/consoles/keys`
+4. Start INT-AI Client V6 and select the main key.
 
-Require non-empty `endpoint` and `api_key`. The client writes `endpoint` as
-the API base ending in `/v1`, not a complete generation request URL. Append
-the documented native endpoint required by the model and task; do not
-duplicate `/v1` or POST a generation body to the base URL alone.
-Do not guess a model-specific protocol. If its required endpoint or parameters
-are unknown, ask for the model's API contract instead of submitting a trial call.
+The user completes these actions in the INT-AI console. Do not create a Key,
+charge an account, or request the Key in chat.
 
-If the file is missing, unreadable, malformed or has no valid endpoint, return:
+## Connection
+
+Before every request, read the client-maintained Windows connection file:
+
+`%LOCALAPPDATA%\INTClientV6\call-model\connection.json`
+
+It contains `endpoint` and `api_key`. Use `api_key` only as the HTTP
+`Authorization: Bearer ...` header. Never put it in prompt text, system or
+developer text, JSON body, tool arguments, shell scripts, URLs, logs, or a
+reply. The request body must contain only the exact model name and the user's
+task fields. The INT-AI client updates this file after login, key creation, key
+selection, and key changes.
+
+If the file is missing or invalid, do not guess another path or endpoint.
+Return this fixed guidance:
 
 `CALL MODEL 需要 INT-AI Client V6。当前未发现可用连接文件。是否同意现在执行 https://clientdownload.intai.cc/install.ps1 安装客户端？`
 
-Run that installer only after explicit user agreement. Do not execute a model
-task in the installation turn. After installation, ask the user to start the
-client, sign in and select a main Key before retrying.
-
-If the file has no usable `api_key`, return:
+Only execute the installer after the user explicitly agrees. After installation
+or when the file exists but has no usable `api_key`, stop and return:
 
 `请启动 INT-AI Client V6，完成注册/登录、充值（如需付费模型）并创建或选择主密钥，然后重试 CALL MODEL。`
 
-Keep connection paths and the technical identifier `call-model` unchanged.
-On hosts without access to this Windows client file, report the unavailable
-connection; do not substitute another machine's file or invent credentials.
+## Request rules
 
-## Execute the exact requested task
+- Use the exact complete model name supplied by the user.
+- Do not list models, recommend a model, rename a model, or downgrade to another model.
+- If the model name is missing or rejected, ask the user for the exact model name.
+- Send the task directly to the `endpoint` from the connection file with the
+  `Authorization` header described above and return the upstream result.
+- Never generate a command or script containing the real `api_key`; use a
+  host/runtime HTTP header facility whenever available. If the host cannot
+  keep the header separate from model-visible text, stop and report that the
+  host cannot perform a safe CALL MODEL request.
+- Do not resubmit a request whose acceptance or result is uncertain.
 
-Example: `使用 CALL MODEL GPT-IMAGE-2.5-4K，生成一张都市夜景的图。`
-The native Skill identifier is `call-model`; use the host's actual Skill picker
-or invocation syntax. Do not promise that every host accepts `@CALL MODEL`.
+Example:
 
-- Require the user's complete exact model name. Do not list, recommend,
-  rename, substitute or downgrade models. Ask if the exact name is missing.
-- Use only `endpoint` from the connection file and the model's documented
-  native request shape, preserving the user's exact model and task fields.
-- Use `api_key` only as the HTTP `Authorization: Bearer ...` header. Read it
-  at runtime into the HTTP client; never hardcode its value into code, prompts,
-  request bodies, tool arguments, URLs, logs or replies. Do not output the
-  connection file. If the host cannot keep it out of model-visible content,
-  stop and explain that a safe request cannot be made.
-- Never search for, install, start or call MCP tools for CALL MODEL. A direct
-  HTTP failure is not permission to fall back to MCP.
-- Do not automatically repeat a request after acceptance, timeout,
-  disconnection or uncertain acceptance. Query an existing task only when
-  its ID and documented query endpoint are known. Otherwise report the
-  uncertainty and ask before resubmitting.
-- Return the actual result or upstream error. Do not claim completion based
-  only on HTTP 200 or a task submission acknowledgement.
+`使用 CALL MODEL GPT-IMAGE-2.5-4K，生成一张都市夜景的图。`

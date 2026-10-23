@@ -2,7 +2,7 @@
 
 唯一当前安装入口：
 
-https://clientdownload.intai.cc/plugins/call-model/stable/SKILL.md
+https://raw.githubusercontent.com/passion0501/CALL-MODEL/main/skills/call-model/SKILL.md
 
 官方仓库：https://github.com/passion0501/CALL-MODEL
 
